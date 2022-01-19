@@ -4,10 +4,10 @@ from Utils.utils import is_valid_file
 options = "hs:f:x:r:n:"
 long_options = ["help", "strike_price=", "file=", "risk_free=", "name="]
 help_message = "This program will estimate the theoretical value of an option contract using Black-Scholes modeling.\n"\
-                "If you leave the command line empty, the program will prompt you for a 100-day historical file, strike price, and expiration date.\n\n"\
+                "If you leave the command line empty, the program will prompt you for a historical financial data file, strike price, and expiration date.\n\n"\
                 "The file should be a financial file (comma delimited) of at least 100 days containing the following fields:\n"\
                     "\t -Date\n" \
-                    "\t -Close Price\n\n"\
+                    "\t -Close\n\n"\
                 "The program will also prompt you for the strike price to be used. You can specifc the risk free rate using the -r or --risk_free flag.\n" \
                 "If no risk free rate is provided, the default will be the coupon rate of the 3-month T-Bill as of 1/14/22 = .13% \n" \
                 "You can also specific a name or ticker using the -n or --name flag \n\n" \
@@ -43,7 +43,7 @@ def parse_args(argv=None, *args) -> dict:
                 input_data["historical_data_file"] = a
             else:
                 print(f"{a} is not a valid file.")
-                sys.exit()
+                sys.exit(-1)
         elif o in ("-x", "--expiration_date"):
             try:
                 input_data["expiration_date"] = datetime.datetime.strptime(a, '%Y-%m-%d')
@@ -55,8 +55,7 @@ def parse_args(argv=None, *args) -> dict:
                 input_data["risk_free"] = float(a)
             except ValueError as e:
                 print(e)
-                sys.exit(-1)
-        
+                sys.exit(-1)    
         elif o in ("-n", "--name"):
             input_data["name"] = a
         else:
