@@ -7,8 +7,18 @@ class BlackScholes:
         self.underlying_price = underlying_price
         self.target_strike = target_strike
         self.risk_free_rate = risk_free_rate
+        self.exp_date = target_exp_date
         self.time_to_exp = adj_time(target_exp_date)
         self.std_dev_of_returns = adj_stdev_returns(closing_prices)
+    
+    def __repr__(self):
+        return
+    def __str__(self):
+        return
+    def __eq__(self, other):
+        return
+    def __bool__(self):
+        return
     
     def price(self) -> float:
         D1 = distribution_one(self)
