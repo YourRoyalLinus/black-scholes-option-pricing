@@ -12,13 +12,19 @@ class BlackScholes:
         self.std_dev_of_returns = adj_stdev_returns(closing_prices)
     
     def __repr__(self):
-        return
+        cls = type(self).__name__
+        return "{}({})".format(cls, self.__dict__)
+    
     def __str__(self):
-        return
+        return str(self.__dict__)
+
     def __eq__(self, other):
-        return
+        if isinstance(other, BlackScholes):
+            return (self.__dict__ == other.__dict__)
+        return False
+
     def __bool__(self):
-        return
+        return bool(self.underlying_price and self.target_strike and self.time_to_exp and self.std_dev_of_returns)
     
     def price(self) -> float:
         D1 = distribution_one(self)

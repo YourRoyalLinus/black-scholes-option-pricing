@@ -1,5 +1,4 @@
 import sys
-import pandas as pd
 from BlackScholes.black_scholes import BlackScholes
 from CommandLine.command_line_parser import parse_args
 from Utils.utils import output_results, validate_input_data, read_historical_file, is_sufficient_sample_size

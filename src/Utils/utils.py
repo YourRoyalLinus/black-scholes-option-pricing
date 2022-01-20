@@ -87,7 +87,7 @@ def output_results(sufficient_sample :bool, model, name=None) -> None:
     
     name_formatted = (name[:30] + "...") if len(name) > 30 else name if name else "N/A" 
     border = '~'*output_len
-    header_fmt = "| {0:^33} | {1:^15} | {2:^15} | {3:^15} | {4:^14} | {5:^16} |".format("Company", "Underlying Price", "Target Strike", "Risk Free Rate", "Expiration_Date", "Expected Call Price")
+    header_fmt = "| {0:^33} | {1:^15} | {2:^15} | {3:^15} | {4:^14} | {5:^16} |".format("Company", "Underlying Price", "Target Strike", "Risk Free Rate", "Expiration Date", "Expected Call Price")
     body_fmt = "| {0:^33} | ${1:^15} | ${2:^14} | {3:^14}% | {4:^15} | ${5:^18} |".format(name_formatted, round(model.underlying_price, 4), model.target_strike, model.risk_free_rate, model.exp_date.strftime('%Y-%m-%d'), model.price())
     
     print(border)

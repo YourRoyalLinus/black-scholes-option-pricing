@@ -26,7 +26,7 @@ def adj_stdev_returns(closing_prices :Iterable) -> float:
 
 def adj_time(target_exp_date :datetime.datetime) -> float:
     days_to_exp = _days_to_experation(target_exp_date)
-    return days_to_exp/datetime.timedelta(days=365)
+    return round(days_to_exp/datetime.timedelta(days=365), 4)
 
 def distribution_one(model) -> float:
     return math.log( (model.underlying_price/model.target_strike) + 
