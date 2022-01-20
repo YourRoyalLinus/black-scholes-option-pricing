@@ -1,9 +1,14 @@
 import datetime
 from typing import Iterable
-from BlackScholes.calculations import adj_stdev_returns, adj_time, distribution_one, distribution_two, normalize_distribution, present_value_strike
+from BlackScholes.calculations import adj_stdev_returns, adj_time 
+from BlackScholes.calculations import distribution_one, distribution_two 
+from BlackScholes.calculations import normalize_distribution
+from BlackScholes.calculations import present_value_strike
 
 class BlackScholes:
-    def __init__(self, underlying_price :float, target_strike :float, target_exp_date :datetime.datetime,  closing_prices :Iterable, risk_free_rate=00.13):
+    def __init__(self, underlying_price :float, 
+                target_strike :float, target_exp_date :datetime.datetime,  
+                closing_prices :Iterable, risk_free_rate=00.13):
         self.underlying_price = underlying_price
         self.target_strike = target_strike
         self.risk_free_rate = risk_free_rate
@@ -24,7 +29,10 @@ class BlackScholes:
         return False
 
     def __bool__(self):
-        return bool(self.underlying_price and self.target_strike and self.time_to_exp and self.std_dev_of_returns)
+        return bool(self.underlying_price and 
+                    self.target_strike and 
+                    self.time_to_exp and 
+                    self.std_dev_of_returns)
     
     def price(self) -> float:
         D1 = distribution_one(self)
@@ -33,7 +41,7 @@ class BlackScholes:
         ND2 = normalize_distribution(D2)
         PvK = present_value_strike(self)
 
-        return round(self.underlying_price * ND1 - (PvK*ND2), 4)
+        return round(self.underlying_price * ND1 - (PvK*ND2), 2)
 
 
 
