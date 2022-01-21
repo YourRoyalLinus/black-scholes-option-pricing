@@ -34,7 +34,7 @@ class BlackScholes:
                     self.time_to_exp and 
                     self.std_dev_of_returns)
     
-    def price(self) -> float:
+    def call_price(self) -> float:
         D1 = distribution_one(self)
         ND1 = normalize_distribution(D1)
         D2 = distribution_two(D1, self)
@@ -42,6 +42,18 @@ class BlackScholes:
         PvK = present_value_strike(self)
 
         return round(self.underlying_price * ND1 - (PvK*ND2), 2)
+
+    def put_price(self) -> float:
+        PvK = present_value_strike(self)
+        
+        D1 = distribution_one(self)
+        D2 = distribution_two(D1, self)
+        ND2 = normalize_distribution(D2)
+        ND1 = normalize_distribution(D1)
+        _ND1 = 1 - ND1
+        _ND2 = 1 - ND2
+        
+        return round(PvK * _ND2 - self.underlying_price * _ND1, 2)
 
 
 

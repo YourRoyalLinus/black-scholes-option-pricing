@@ -44,15 +44,15 @@ def adj_stdev_returns(closing_prices :Iterable) -> float:
 
 def adj_time(target_exp_date :datetime.datetime) -> float:
     days_to_exp = _days_to_experation(target_exp_date)
-    return round(days_to_exp/datetime.timedelta(days=365), 4)
+    return days_to_exp/datetime.timedelta(days=365)
 
 def distribution_one(model :'black_scholes.BlackScholes') -> float:
-    return math.log((model.underlying_price/model.target_strike) 
-                    + (model.risk_free_rate 
-                    + ((model.std_dev_of_returns**2) / 2) * model.time_to_exp) 
+    return (math.log((model.underlying_price/model.target_strike)) 
+                    + ((model.risk_free_rate 
+                    + (model.std_dev_of_returns**2) / 2) * model.time_to_exp) 
                     / (model.std_dev_of_returns * math.sqrt(model.time_to_exp))
-                )
-
+            )
+        
 def distribution_two(D1 :float, model :'black_scholes.BlackScholes') -> float:
     return D1 - (model.std_dev_of_returns * math.sqrt(model.time_to_exp))
 

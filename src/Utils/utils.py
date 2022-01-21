@@ -101,7 +101,8 @@ def output_results(sufficient_sample :bool, model :BlackScholes,
                                                price_formatted) \
                 + " ${0:^14} | {1:^14}% |".format(model.target_strike,
                                                   model.risk_free_rate) \
-                + " {0:^15} | ${1:^18} |".format(date_formatted, model.price())
+                + " {0:^15} | ${1:^18} |".format(date_formatted, 
+                                                 model.call_price())
     
     print(border)
     print(header_fmt)
