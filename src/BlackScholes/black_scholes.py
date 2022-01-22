@@ -36,8 +36,8 @@ class BlackScholes:
                     self.target_strike and 
                     self.time_to_exp and 
                     self.std_dev_of_returns)
-    
-    def call_price(self) -> float:
+          
+    def _call_price(self) -> float:
         d1 = distribution_one(self)
         nd1 = normalize_distribution(d1)
         d2 = distribution_two(d1, self)
@@ -46,7 +46,7 @@ class BlackScholes:
 
         return round(self.underlying_price * nd1 - (pvk*nd2), 4)
 
-    def put_price(self) -> float:
+    def _put_price(self) -> float:
         pvk = present_value_strike(self)
 
         d1 = distribution_one(self)
@@ -59,18 +59,18 @@ class BlackScholes:
         
         return round(pvk * _nd2 - self.underlying_price * _nd1, 4)
 
-    def call_delta(self) -> float:
+    def _call_delta(self) -> float:
         d1 = distribution_one(self)
 
         return round(normalize_distribution(d1), 4)
     
-    def put_delta(self) -> float:
+    def _put_delta(self) -> float:
         d1 = distribution_one(self)
         nd1 = normalize_distribution(d1)
 
         return round(nd1 - 1, 4)
 
-    def call_rho(self) -> float:
+    def _call_rho(self) -> float:
         pvk = present_value_strike(self)
         d1 = distribution_one(self)
         d2 = distribution_two(d1, self)
@@ -78,7 +78,7 @@ class BlackScholes:
 
         return round((1 / 100) * pvk * self.time_to_exp * nd2, 4)
         
-    def put_rho(self) -> float:
+    def _put_rho(self) -> float:
         d1 = distribution_one(self)
         pvk = present_value_strike(self)
         d2 = distribution_two(d1, self)
@@ -87,7 +87,7 @@ class BlackScholes:
 
         return round((1 / 100) * -(pvk * self.time_to_exp * _nd2), 4)
 
-    def call_theta(self) -> float:
+    def _call_theta(self) -> float:
         d1 = distribution_one(self)
         d2 = distribution_two(d1, self)
         nd2 = normalize_distribution(d2)
@@ -101,7 +101,7 @@ class BlackScholes:
                         / (2 * sqrt_t)) * pdf)             
                         - (self.risk_free_rate * pvk * nd2)), 4)
 
-    def put_theta(self) -> float:
+    def _put_theta(self) -> float:
         d1 = distribution_one(self)
         d2 = distribution_two(d1, self)
         nd2 = normalize_distribution(d2)
@@ -109,29 +109,34 @@ class BlackScholes:
         pvk = present_value_strike(self)
 
         pdf = probability_density_function_d1(d1)
-        sigma = std_dev_returns(self.std_dev_of_returns)
         sqrt_t = square_root_time(self.time_to_exp)
-
+        
         return round (  (1 / calculations.AVERAGE_OPEN_MARKET_DAYS)
-                        * (- ((self.underlying_price * sigma * 1) 
-                        / (2 * (sqrt_t))* pdf)
-                        + (self.risk_free_rate * pvk) * _nd2
-                        - 0), 4)
+                        * (-(((self.underlying_price * self.std_dev_of_returns)
+                        / (2 * sqrt_t)) * pdf)             
+                        + (self.risk_free_rate * pvk * _nd2)), 4)
 
     
-    def gamma(self) -> float:
+    def _gamma(self) -> float:
         d1 = distribution_one(self)
         pdf = probability_density_function_d1(d1)
         sqrt_t = square_root_time(self.time_to_exp)
         return round(pdf / (self.underlying_price
                     * self.std_dev_of_returns * sqrt_t), 4)
 
-    def vega(self) -> float:
+    def _vega(self) -> float:
         d1 = distribution_one(self)
         pdf = probability_density_function_d1(d1)
         sqrt_t = square_root_time(self.time_to_exp)
         return round ((1 / 100) * self.underlying_price * sqrt_t * pdf , 4)
     
-    
+    def put(self):
+        return {"price": self._put_price(), "delta": self._put_delta(), 
+                "theta": self._put_theta(), "rho": self._put_rho(),
+                "gamma": self._gamma(), "vega": self._vega()}
+    def call(self):
+        return {"price": self._call_price(), "delta": self._call_delta(), 
+                "theta": self._call_theta(), "rho": self._call_rho(),
+                "gamma": self._gamma(), "vega": self._vega()}
 
 

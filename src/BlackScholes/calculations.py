@@ -1,7 +1,5 @@
-from distutils.file_util import move_file
 import math
 import datetime
-from operator import mod
 import statistics
 from typing import Iterable
 from scipy import stats
@@ -13,7 +11,7 @@ def _days_to_experation(target_exp_date :datetime.datetime) -> int:
     return target_exp_date - datetime.datetime.today() 
 
 def _price_returns(closing_prices :Iterable) -> Iterable:
-    return [(closing_prices[i]/closing_prices[i+1]) - 1 
+    return [(closing_prices[i]/closing_prices[i+1]) - 1  #Optimize w/ dict?
                         for i in range(0, len(closing_prices)-1)]
 
 def _price_returns_plus_one(price_returns :Iterable) -> map:
@@ -36,7 +34,7 @@ def std_dev_returns(closing_prices :Iterable) -> float:
                             _price_returns(closing_prices)
                         )
                     )
-    return (math.sqrt(statistics.pvariance(price_returns_ln)) 
+    return (math.sqrt(statistics.variance(price_returns_ln)) 
             * math.sqrt(AVERAGE_OPEN_MARKET_DAYS))
 
 def adj_time(target_exp_date :datetime.datetime) -> float:

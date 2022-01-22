@@ -1,7 +1,6 @@
 import datetime 
 import sys
 import pandas as pd
-from BlackScholes.black_scholes import BlackScholes
 from .validator import is_valid_file, is_valid_float, is_valid_date 
 from .validator import is_valid_dataset
 
@@ -66,64 +65,3 @@ def read_historical_file(file_path :str) -> pd.DataFrame:
                 "conform to these names.")
         print(f"Columns Found: {df.columns}")
         sys.exit()
-
-def output_results(sufficient_sample :bool, model :BlackScholes, 
-                    name=None) -> None:
-    output_len = 132
-
-    warning_line_one = "* " + (" * " * 20) + "WARNING " + (" * " * 20) + " *"
-    warning_line_two ="\n* {0:^128} *".format(
-                                    "Fewer than 100 close prices provided; "
-                                    "data will be less reliable as a result"
-                                )
-    warning_line_three="\n" + "*  " + (" * "*42) + "  *"
-    warning_msg = warning_line_one + warning_line_two + warning_line_three
-
-    if not sufficient_sample:
-        print()
-        print(warning_msg)
-        print()
-    
-    name_formatted = (name[:30] + "...") if len(name) > 30\
-                                         else name if name else "N/A"
-    price_formatted = round(model.underlying_price, 2)
-    date_formatted = model.exp_date.strftime('%Y-%m-%d')
-
-    border = '~'*output_len
-    header_fmt = "| {0:^33} | {1:^15} | {2:^15} |".format("Company",
-                                                          "Underlying Price",
-                                                          "Target Strike") \
-                + " {0:^15} | {1:^14} | {2:^16} |".format("Risk Free Rate", 
-                                                         "Expiration Date",
-                                                         "Expected Call Price")
-
-    body_fmt = "| {0:^33} | ${1:^15} |".format(name_formatted, 
-                                               price_formatted) \
-                + " ${0:^14} | {1:^14}% |".format(model.target_strike,
-                                                  model.risk_free_rate) \
-                + " {0:^15} | ${1:^18} |".format(date_formatted, 
-                                                 model.call_price())
-
-    greeks_fmt =  "| {0:^33} | {1:^15} | {2:^16} |".format("", "Delta", 
-                                                            "Gamma") \
-                + " {0:^15} | {1:^15} | {2:^19} |".format("Theta", "Vega", 
-                                                            "Rho")
-
-    greeks_body = "| {0:^33} | {1:^15} | {2:^16} |".format("Greeks", 
-                                                        model.call_delta(), 
-                                                        model.gamma()) \
-                + " {0:^15} | {1:^15} | {2:^19} |".format(model.call_theta(),
-                                                        model.vega(),
-                                                        model.call_rho())
-    
-    print(border)
-    print(header_fmt)
-    print(body_fmt)
-    print()
-    print(border)
-    print()
-    print(greeks_fmt)
-    print(greeks_body)
-    print(border)
-
-    return None 

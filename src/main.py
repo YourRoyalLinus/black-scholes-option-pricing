@@ -1,14 +1,9 @@
-from fileinput import close
 import sys
-from BlackScholes import black_scholes
 from BlackScholes.black_scholes import BlackScholes
 from CommandLine.command_line_parser import parse_args
-from Utils.utils import output_results, get_required_inputs 
-from Utils.utils import read_historical_file
+from Utils.utils import get_required_inputs, read_historical_file
 from Utils.validator import is_sufficient_sample_size
-import math
-import scipy.stats as stats
-import datetime
+from Utils.output import display_results
 
 def main(argv):
     input_data = parse_args(argv)
@@ -27,14 +22,12 @@ def main(argv):
                         close_prices.to_list(), 
                         input_data["risk_free"])
    
-    output_results(sufficient_data_size, model, name=input_data['name'])
+    display_results(sufficient_data_size, input_data["option_type"], 
+                    model, name=input_data['name'])
 
     #TODO
-    #Greeks/Check if Call or Put/formatting for -0.0 puts/Caching?/Cool features?
-    
-    #Add functionality for Dividend Paying Stocks?
     #Mini-Refactor/minor improvements/optimize**
-    #deadline 1/22/22
+    #deadline 1/23/22
     
 if __name__ == "__main__":
     main(sys.argv[1:])
