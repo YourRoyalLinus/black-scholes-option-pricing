@@ -1,9 +1,9 @@
 import sys, getopt, datetime
 from Utils.validator import is_valid_file, is_valid_date, is_valid_float
 
-OPTIONS = "hs:f:x:r:n:"
-LONG_OPTIONS = ["help", "strike_price=", "file=", "risk_free=", "name="]
-HELP_MESSAGE = (
+_OPTIONS = "hs:f:x:r:n:"
+_LONG_OPTIONS = ["help", "strike_price=", "file=", "risk_free=", "name="]
+_HELP_MESSAGE = (
         "This program will estimate the theoretical value of an "
         "option contract using Black-Scholes modeling.\n"
         "If you leave the command line empty, the program will prompt you "
@@ -43,17 +43,17 @@ HELP_MESSAGE = (
 
 def parse_args(argv=None, *args) -> dict:
     input_data = {"historical_data_file": '', "strike_price" : 0.00,
-                    "expiration_date": None, "risk_free" : 00.13, "name" : ''}
+                "expiration_date": None, "risk_free" : 00.0013, "name" : ''}
 
     try:
-        _opts, _args = getopt.getopt(argv, OPTIONS, LONG_OPTIONS)
+        _opts, _args = getopt.getopt(argv, _OPTIONS, _LONG_OPTIONS)
     except getopt.GetoptError as e:
         print(e)
         sys.exit(-1)
 
     for o, a in _opts:
         if o in ("-h", "--help"):
-            print(HELP_MESSAGE)
+            print(_HELP_MESSAGE)
             sys.exit()
         elif o in ("-s", "--strike_price"):
             if(is_valid_float(a)):

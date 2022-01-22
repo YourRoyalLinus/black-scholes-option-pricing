@@ -103,10 +103,27 @@ def output_results(sufficient_sample :bool, model :BlackScholes,
                                                   model.risk_free_rate) \
                 + " {0:^15} | ${1:^18} |".format(date_formatted, 
                                                  model.call_price())
+
+    greeks_fmt =  "| {0:^33} | {1:^15} | {2:^16} |".format("", "Delta", 
+                                                            "Gamma") \
+                + " {0:^15} | {1:^15} | {2:^19} |".format("Theta", "Vega", 
+                                                            "Rho")
+
+    greeks_body = "| {0:^33} | {1:^15} | {2:^16} |".format("Greeks", 
+                                                        model.call_delta(), 
+                                                        model.gamma()) \
+                + " {0:^15} | {1:^15} | {2:^19} |".format(model.call_theta(),
+                                                        model.vega(),
+                                                        model.call_rho())
     
     print(border)
     print(header_fmt)
     print(body_fmt)
+    print()
+    print(border)
+    print()
+    print(greeks_fmt)
+    print(greeks_body)
     print(border)
 
     return None 
