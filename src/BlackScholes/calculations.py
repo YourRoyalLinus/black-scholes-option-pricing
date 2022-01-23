@@ -1,3 +1,4 @@
+from array import array
 import math
 import datetime
 import statistics
@@ -7,12 +8,12 @@ from BlackScholes import black_scholes
 
 AVERAGE_OPEN_MARKET_DAYS = 253
     
-def _days_to_experation(target_exp_date :datetime.datetime) -> int:
+def _days_to_experation(target_exp_date :datetime.datetime) -> float:
     return target_exp_date - datetime.datetime.today() 
 
 def _price_returns(closing_prices :Iterable) -> Iterable:
-    return [(closing_prices[i]/closing_prices[i+1]) - 1  #Optimize w/ dict?
-                        for i in range(0, len(closing_prices)-1)]
+    return array('f', (closing_prices[i]/closing_prices[i+1] - 1 
+                        for i in range(0, len(closing_prices)-1)))
 
 def _price_returns_plus_one(price_returns :Iterable) -> map:
     

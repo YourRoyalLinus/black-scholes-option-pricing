@@ -24,10 +24,6 @@ def main(argv):
    
     display_results(sufficient_data_size, input_data["option_type"], 
                     model, name=input_data['name'])
-
-    #TODO
-    #Mini-Refactor/minor improvements/optimize**
-    #deadline 1/23/22
     
 if __name__ == "__main__":
     main(sys.argv[1:])
