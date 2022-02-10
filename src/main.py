@@ -26,7 +26,4 @@ def main(argv):
                     model, name=input_data['name'])
     
 if __name__ == "__main__":
-    if sys.version_info < (3, 5):
-        print("This program requires Python 3.5.0 or later")
-        sys.exit(0)
     main(sys.argv[1:])
