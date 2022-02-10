@@ -1,4 +1,6 @@
 # Black-Scholes Option Pricing Calculator
+*Requires Python version 3.5 or later*  
+
 The Black-Scholes option pricing calculator is a command line tool used to calculate the price and corresponding Greek values of a financial derivative, provided a few inputs.   If these inputs are not provided as arguments when first executing the program, you will be prompted for them.  
 
 ### Inputs
