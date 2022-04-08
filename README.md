@@ -34,6 +34,7 @@ The Black-Scholes option pricing calculator is a command line tool used to calcu
 * Historical Data - [Masimo Corporation (MASI)](https://finance.yahoo.com/quote/MASI/history?p=MASI)  
   
   `py main.py -f PATH\TO\CSV\MASI.csv -s 220c -x 2022-02-18`
+  ```
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   |              Company              | Underlying Price |  Target Strike  | Risk Free Rate  | Expiration Date | Expected Call Price |
   |                N/A                | $    217.91      | $    220.0      |     0.0013    % |   2022-02-18    | $      5.5349       |
@@ -42,11 +43,14 @@ The Black-Scholes option pricing calculator is a command line tool used to calcu
   |              Greeks               |      Delta      |      Gamma       |      Theta      |      Vega       |         Rho         |
   |               Call                |     0.4644      |      0.0244      |     -0.1841     |     0.2284      |       0.0666        |
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ```
   
-  `py main.py`  
-  Please enter a historical data file to build the  Black-Scholes model (Rerun with flag -h or --help to for more information): PATH\TO\CSV\MASI.csv  
-  Please enter a targeted strike price (Rerun with flag -h or --help to for more information): 220  
-  Please enter an expiration date of the contract in <YYYY-MM-DD> format (Rerun with flag -h or --help to for more information): 2022-02-18  
+  `py main.py`
+  
+  Please enter a historical data file to build the  Black-Scholes model (Rerun with flag -h or --help to for more information): `PATH\TO\CSV\MASI.csv`  
+  Please enter a targeted strike price (Rerun with flag -h or --help to for more information): `220`  
+  Please enter an expiration date of the contract in <YYYY-MM-DD> format (Rerun with flag -h or --help to for more information): `2022-02-18` 
+  ```
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   |              Company              | Underlying Price |  Target Strike  | Risk Free Rate  | Expiration Date | Expected Call Price |
   |                N/A                | $    217.91      | $    220.0      |     0.0013    % |   2022-02-18    | $      5.534        |
@@ -55,8 +59,10 @@ The Black-Scholes option pricing calculator is a command line tool used to calcu
   |              Greeks               |      Delta      |      Gamma       |      Theta      |      Vega       |         Rho         |
   |               Call                |     0.4644      |      0.0244      |     -0.1841     |     0.2284      |       0.0665        |
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ```
   
   `py main.py -f PATH\TO\CSV\MASI.csv -s 215p -x 2022-02-18 --name MASI`
+  ```
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   |              Company              | Underlying Price |  Target Strike  | Risk Free Rate  | Expiration Date | Expected Put Price |
   |               MASI                | $    217.91      | $    215.0      |     0.0013    % |   2022-02-18    | $      5.0827       |
@@ -65,6 +71,7 @@ The Black-Scholes option pricing calculator is a command line tool used to calcu
   |              Greeks               |      Delta      |      Gamma       |      Theta      |      Vega       |         Rho         |
   |                Put                |     -0.4134     |      0.024       |     -0.1795     |     0.2238      |       -0.0662       |
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ```
 
 ---
 ## Program Flags
